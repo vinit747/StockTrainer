@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>StockWatch</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js"></script>
+  <script src="Resources/moment.js"></script>
+  <script src="Resources/timezone.js"></script>  
+  <link rel="stylesheet" href="../CSS/stock.css">
+  <script src="https://use.fontawesome.com/279015a618.js"></script>
+</head>
+<body>
+<nav class="navbar nav navbar-inverse navbar-fixed-top text" id="result">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>                        
+        </button>
+      <a class="navbar-brand" href="#">StockWatch</a>
+      <form class="navbar-form navbar-left mobsearch" method="POST" action="stocklogged">
+          <div class="input-group">
+            <input type="text" class="form-control formers" id="tickers" name="ticker" placeholder="Search a Stock eg. GOOG">
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav boldem">
+          <li><a href="history">History</a></li>
+          <li><a href="currencylogged" class="converter"><span class="glyphicon glyphicon-usd"> </span>Converter</a></li>
+          <li><a href="watchlist">Watchlist</a></li>
+        </ul>
+        <form id="tck" action="stocklogged" method="POST">
+              <input type="hidden" name="ticker" id="hold">
+        </form>
+        <form class="navbar-form navbar-left desksearch" method="POST" action="stocklogged">
+          <div class="input-group">
+            <input type="text" class="form-control formers" id="tickers2" name="ticker" placeholder="Search a Stock eg. GOOG">
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+        <ul class="nav navbar-nav boldem navbar-right">
+            <li><a href = "ranking">Ranking</a></li>
+            <li><a href="loggedin"><span class="glyphicon glyphicon-user"> </span><span id="acc"><%= acc %></span></a></li>
+            <li><a href="logout" class="logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+        </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid">
+    <ul class="list-inline">
+        <div class="desk"> 
+             <li class="ticker text"></li>
+            <li class="text ibdesk"  style="border-left:3px solid black"><div data-toggle="tooltip" data-placement="bottom" title="Unit: Minutes. Smaller intervals take more time to load!">Refresh Rate: </div></li>
+            <li class="text ib ibdesk hidden sh ibcddesk monthly">Monthly</li>
+            <li class="text ib ibdesk hidden sh ibcddesk weekly ">Weekly</li>
+            <li class="text ib ibdesk hidden sh ibcddesk daily">Daily</li> 
+            <li class="text ib ibdesk ibcl ibcldesk sixty">60</li>
+            <li class="text ib ibdesk ibcl ibcldesk">30</li>
+            <li class="text ib ibdesk ibcl ibcldesk">15</li>
+            <li class="text ib ibdesk ibcl ibcldesk">5</li>
+            <li class="text ib ibdesk ibcl ibcldesk">1</li>
+            <li class="text graph icdesk"><i class="fa fa-line-chart"></i></li>
+            <li class="text buy iddesk">
+                <a href="#" id="popover1" data-placement="bottom">Buy</a>
+                <div id="popover-head" class="hide">
+                  Buy Stock
+                </div>
+                <div id="popover-content" class="hide" style="color:black">
+                  Quantity: <input type="text" id="qty" name="qty">
+                  <button type="button" id="buys">Buy</button>
+                </div>
+            </li>
+            <li class="text sell iddesk">
+                <a href="#" id="popover2" data-placement="bottom">Sell</a>
+                <div id="popover-head2" class="hide">
+                  Sell Stock
+                </div>
+                <div id="popover-content2" class="hide" style="color:black">
+                  Quantity: <input type="text" id="qtys" name="qty">
+                  <button type="button" id="sells">Sell</button>
+                </div>
+            </li>
+            <% if(watching == false){ %>
+                <li class="text watch iddesk" style="border-right:0;">Watch</li>
+                <li class="text unwatch iddesk hide" style="border-right:0;">Unwatch</li>
+            <% }else{ %>
+                <li class="text watch iddesk hide" style="border-right:0;">Watch</li>
+                <li class="text unwatch iddesk" style="border-right:0;">Unwatch</li>
+            <% } %>
+        </div>
+        <div class="dropdown mob"> 
+            <li class="ticker text"></li>
+            <button class="btn btn-rmr dropdown-toggle" type="button" data-toggle="dropdown">Options
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li class="text dropdown-header ibmob abc"  style="border-left:3px solid black">Refresh Rate </li>
+                <li class="text ib hidden sh ibcd monthly ibmob">Monthly</li>
+                <li class="text ib hidden sh ibcd weekly ibmob">Weekly</li>
+                <li class="text ib hidden sh ibcd daily ibmob">Daily</li> 
+                <li class="text ib ibcl ibmob sixtymob">60</li>
+                <li class="text ib ibcl ibmob">30</li>
+                <li class="text ib ibcl ibmob">15</li>
+                <li class="text ib ibcl ibmob">5</li>
+                <li class="text ib ibcl ibmob">1</li>
+                <li class="divider"></li>                
+                <li class="text graph ic ibmob">Graph</li>
+                <li class="text buy id ibmob buymob">Buy</li>
+                <li class="text sell id ibmob sellmob">Sell</li>
+                <% if(watching == false){ %>
+                    <li class="text watch id ibmob" style="border-right:0;">Watch</li>
+                <% }else{ %>
+                    <li class="text unwatch id ibmob" style="border-right:0;">Unwatch</li>
+                <% } %>
+            </ul>
+        </div>
+        
+    </ul>
+    <div class="row bod">
+        <div class="col-sm-6 first">
+            <table class="text table-condensed" border=1>
+                <tr>
+                    <td>Last Update</td>
+                    <td class="data date"></td>
+                </tr>
+                <tr>
+                    <td>Open</td>
+                    <td class="data open"><span></span></td>
+                </tr>
+                <tr>
+                    <td>Close</td>
+                    <td class="data cl"><span> </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-sm-6 second">
+            <table class="text table-condensed">
+                <tr>
+                    <td>High</td>
+                    <td class="data high"><span> </td>
+                </tr>
+                <tr>
+                    <td>Low</td>
+                    <td class="data low"><span> </td>
+                </tr>
+                <tr>
+                    <td>Volume</td>
+                    <td class="data volume"><span> </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row hidden char">
+            <div id="chart" class="ch"></div>
+    </div>
+</div>
+</div>
+<script src="../JS/stock.js"></script>
+<script src="../JS/navbar.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>StockWatch</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../CSS/index.css">
+  <script src="../JS/index.js"></script>
+  <script src="../JS/navbar.js"></script>
+</head>
+<body>
+<nav class="navbar nav navbar-inverse navbar-fixed-top text" id="result">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>                        
+        </button>
+      <a class="navbar-brand" href="#">StockWatch</a>
+      <form class="navbar-form navbar-left mobsearch" method="POST" action="stock">
+          <div class="input-group">
+            <input type="text" class="form-control formers" id="tickers" name="ticker" placeholder="Search a Stock eg. GOOG">
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav boldem">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="currency" class="converter"><span class="glyphicon glyphicon-usd"> </span>Converter</a></li>
+        </ul>
+        <form class="navbar-form navbar-left desksearch" method="POST" action="stock">
+          <div class="input-group">
+            <input type="text" class="form-control formers" id="tickers2" name="ticker" placeholder="Search a Stock eg. GOOG">
+            <div class="input-group-btn">
+              <button class="btn btn-default" type="submit">
+                <i class="glyphicon glyphicon-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row r1">
+        <div class="col-sm-6">
+            <form class="login" id="lgn" method="POST" action="/login">
+                <label class="text heading"> Login: </label>
+                <div class="form-group">
+                    <label for="uname" class="text2">Username: </label>
+                    <input type="text" class="form-control former" name="username">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="text2">Password: </label>
+                    <input type="password" class="form-control former" name="password">
+                </div>
+                <div class="form-group">
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn bttn btn-rmr bcl rmr-red">
+                            <input type="checkbox" name="remember" id="option1"> <span class="rmr">Remember Me</span><span class="rmrd">Remembered</span>
+                        </label>
+                    </div>
+                </div>
+                 
+                <div class="btn-toolbar">
+                    <button type="submit" name="submit-login" class="btn btn-default bttn green" id="logn">
+                        <b>Login</b>
+                    </button>
+                     
+                    <button type="button" class="btn btn-default bttn red"><b>Click to Register</b></button>
+                </div>
+            </form>
+            <form class="register" id="rg" method="POST">
+                <label class="text heading"> Register: </label>
+                <div class="form-group">
+                    <label for="un" class="text2">Username: </label>
+                    <input type="text" class="form-control former" name="un">
+                </div>
+                <div class="form-group">
+                    <label for="email" class="text2">Email: </label>
+                    <input type="text" class="form-control former" id="email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="text2">Password: </label>
+                    <input type="password" class="form-control former" id="password" name="password">
+                </div>
+                <div class="form-group">
+                    <label for="cpassword" class="text2">Confirm Password: </label>
+                    <input type="password" class="form-control former" name="cpassword">
+                </div>
+                <div class="btn-toolbar">
+                    <button type="button" name="submit-login" class="btn btn-default bttn green" id="rgb">
+                        <b>Register</b>
+                    </button>
+                     
+                    <button type="button" class="btn btn-default bttn red"><b>Click to Login</b></button>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-6 desc">
+            <div class="well well-black">
+                <div class="text-center text txt">Welcome to StockWatch, a virtual stock market, where you can trade stocks at the current market price without spending any money. You start off each season with 5000 USD balance. Your goal is to maximize your balance by the end of the season. Each season lasts for a month after which everything is reset. Make sure to sell all your stocks before the season ends, good luck.</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../JS/navbar.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,34 @@
+{
+  "name": "StockWatch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GauravB159/StockWatch.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GauravB159/StockWatch/issues"
+  },
+  "homepage": "https://github.com/GauravB159/StockWatch#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cron": "^1.2.1",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "jsonfile": "^2.4.0",
+    "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13",
+    "mongoose": "^4.9.1",
+    "nodemailer": "^3.1.8",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
+  }
+}
